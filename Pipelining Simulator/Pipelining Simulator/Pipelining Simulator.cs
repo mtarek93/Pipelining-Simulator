@@ -102,25 +102,7 @@ namespace Pipelining_Simulator
             //setting all registers to zero
             for(int i=0; i<16; i++)
                 this.Controls["Reg" + i.ToString()].Text = "0"; 
-            
-            //creating a list of instructions
-            List<instruction> instructions = new List<instruction>();
-            string inst;
-
-            //reading instructions from file
-            StreamReader input = new StreamReader(path);
-            while (!input.EndOfStream)
-            {
-                inst = input.ReadLine();
-                instructions.Add(ParseString(inst));
-            }
-            
-            //testing GUI
-            Reg3.Text = "5";
-            Reg4.Text = "2";
-            instruction x = new instruction();
-            //x = new instruction(2, 3, 5, 0, 0, 0);
-            WriteToRegister(x.dest_reg, ReadFromRegister(x.first_reg) - ReadFromRegister(x.second_reg));            
+                      
          }
 
         private void Browse_Click(object sender, EventArgs e)
@@ -139,5 +121,17 @@ namespace Pipelining_Simulator
 
         }
 
+        private void SynCheck_Click(object sender, EventArgs e)
+        {
+            //creating a list of instructions
+            List<instruction> instructions = new List<instruction>();
+
+            //reading instructions from file and parsing
+            StreamReader input = new StreamReader(path);
+            while (!input.EndOfStream)
+            {
+                instructions.Add(ParseString(input.ReadLine()));
+            }
+        }
     }
 }

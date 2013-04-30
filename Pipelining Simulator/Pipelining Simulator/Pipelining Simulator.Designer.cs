@@ -757,6 +757,7 @@
             this.SynCheck.TabIndex = 70;
             this.SynCheck.Text = "Syntax Check";
             this.SynCheck.UseVisualStyleBackColor = true;
+            this.SynCheck.Click += new System.EventHandler(this.SynCheck_Click);
             // 
             // NextCycle
             // 
