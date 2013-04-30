@@ -19,6 +19,7 @@ namespace Pipelining_Simulator
         {
             InitializeComponent();
         }
+
         void WriteToRegister(int reg, int data)
         {
            this.Controls["Reg" + reg.ToString()].Text= data.ToString();
@@ -85,7 +86,7 @@ namespace Pipelining_Simulator
             public string label = "";
 
             public instruction() { }
-            public instruction(int _first,int _second,int _dest,string _type,int _shift,int _imm)
+            public instruction(int _first, int _second, int _dest, string _type, int _shift, int _imm)
             {
                 first_reg = _first;
                 second_reg = _second;
