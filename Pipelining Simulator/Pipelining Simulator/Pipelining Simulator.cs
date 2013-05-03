@@ -51,7 +51,7 @@ namespace Pipelining_Simulator
 
             temp.label= input.Substring(0, input.IndexOf(" "));
             //R-format
-            if (temp.label == "add" || temp.label == "sub" || temp.label == "or" || temp.label == "slt")
+            if (temp.label == "add" || temp.label == "or" || temp.label == "slt")
             {
                 input = input.Substring(input.IndexOf("$") + 1);
                 temp.dest_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
@@ -61,7 +61,7 @@ namespace Pipelining_Simulator
                 temp.second_reg = Convert.ToInt32(input.Substring(0));
             }
 
-            else if (temp.label == "addi")
+            else if (temp.label == "subi")
             {
                 input = input.Substring(input.IndexOf("$") + 1);
                 temp.second_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
@@ -107,6 +107,10 @@ namespace Pipelining_Simulator
             //setting all registers to zero
             for(int i=0; i<16; i++)
                 this.Controls["Reg" + i.ToString()].Text = "0"; 
+
+            //setting all memory locations to zero
+            for (int i = 0; i < 16; i++)
+                this.Controls["Mem" + i.ToString()].Text = "0";
                       
          }
 
@@ -140,6 +144,7 @@ namespace Pipelining_Simulator
             {
                 this.Controls["WB" + i.ToString()].Text = this.Controls["WB" + (i - 1).ToString()].Text;
             }
+
             WB1.Text = "1";
             if (instructions[inst].label[0] == 'b' || instructions[inst].label == "j" || instructions[inst].label == "sw")
                 WB1.Text = "0";
@@ -172,6 +177,7 @@ namespace Pipelining_Simulator
                 return;
             }
 
+            //Forwarding
             int First = ReadFromRegister(inst.first_reg);
             if (i > 1 && WB2.Text == "1" && (inst.first_reg == instructions[i - 1].dest_reg))
                 First = ALU;
@@ -193,6 +199,18 @@ namespace Pipelining_Simulator
             {
                 bool tmp = First < Second;
                 ALU = (tmp) ? 1 : 0;
+            }
+
+            if (inst.label == "subi")
+            {
+                ALU = First + inst.immediate;
+            }
+
+            if (inst.label == "lw" || inst.label == "sw")
+            {
+                int address;
+                address = First + inst.immediate;
+                ALU2.Text = address.ToString(); //ALU2 or ALU??
             }
 
         }
