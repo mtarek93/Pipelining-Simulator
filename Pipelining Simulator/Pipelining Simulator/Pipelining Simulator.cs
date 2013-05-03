@@ -49,8 +49,8 @@ namespace Pipelining_Simulator
         {
             instruction temp = new instruction();
 
-            temp.label= input.Substring(0, input.IndexOf(" "));
-            //R-format
+            temp.label = input.Substring(0, input.IndexOf(" "));
+            
             if (temp.label == "add" || temp.label == "or" || temp.label == "slt")
             {
                 input = input.Substring(input.IndexOf("$") + 1);
@@ -71,7 +71,7 @@ namespace Pipelining_Simulator
                 temp.immediate = Convert.ToInt32(input);
             }
 
-            else if (temp.label == "lw" || temp.label == "sw" || temp.label == "bne" /*check this and J instruction*/)
+            else if (temp.label == "lw" || temp.label == "sw")
             {
                 input = input.Substring(input.IndexOf("$") + 1);
                 temp.second_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
@@ -79,6 +79,22 @@ namespace Pipelining_Simulator
                 temp.immediate = Convert.ToInt32(input.Substring(0, input.IndexOf("(")));
                 input = input.Substring(input.IndexOf("$") + 1);
                 temp.first_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(")")));
+            }
+
+            else if (temp.label == "beq" || temp.label == "bne")
+            {
+                input = input.Substring(input.IndexOf("$") + 1);
+                temp.first_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
+                input = input.Substring(input.IndexOf("$") + 1);
+                temp.second_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
+                input = input.Substring(input.IndexOf(" "));
+                temp.immediate = Convert.ToInt32(input);
+            }
+
+            else if (temp.label == "j")
+            {
+                input = input.Substring(input.IndexOf(" ") + 1);
+                temp.immediate = Convert.ToInt32(input);
             }
 
             return temp;
