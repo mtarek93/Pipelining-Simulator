@@ -298,6 +298,7 @@ namespace Pipelining_Simulator
                 InstructionID++;
                 textBox1.AppendText(InstructionID.ToString() + ") " + str + "\n");
             }
+            SynCheck.Enabled = true;
             LoadBtn.Enabled = false;
         }
 

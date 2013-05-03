@@ -773,6 +773,7 @@
             // 
             // SynCheck
             // 
+            this.SynCheck.Enabled = false;
             this.SynCheck.Location = new System.Drawing.Point(13, 30);
             this.SynCheck.Name = "SynCheck";
             this.SynCheck.Size = new System.Drawing.Size(100, 35);
