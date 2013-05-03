@@ -134,11 +134,11 @@ namespace Pipelining_Simulator
         private void Browse_Click(object sender, EventArgs e)
         {
             //set intial directory to C:\
-            openFileDialog.InitialDirectory = @"C:\Users\Mohamed\Desktop";
+            openFileDialog.InitialDirectory = @"C:\";
 
             // Show the dialog and get result.
             DialogResult result = openFileDialog.ShowDialog();
-
+            
             if (result == DialogResult.OK) // Test result.
             {
                 path = openFileDialog.FileName;
@@ -245,6 +245,7 @@ namespace Pipelining_Simulator
         {
 
             if (i < 0 || i >= instructions.Count)
+                return;
             if (WB3.Text == "0")
                 return;
             if (instructions[i].label == "lw")
@@ -257,7 +258,7 @@ namespace Pipelining_Simulator
         {
             //NOT FINISHED
 
-            if (inst < 0 || inst >= instructions.Count)
+            if (i < 0 || i >= instructions.Count)
                 return;
 
             instruction inst = instructions[i];
@@ -300,8 +301,8 @@ namespace Pipelining_Simulator
             ALU2.Text = ALU.ToString();
             Memory3.Text = Memory.ToString();
 
-            if (instruction_wb == -1)
-                NextCycle.Enabled = false;
+            //if (instruction_wb == -1)
+                //NextCycle.Enabled = false;
 
             IFBox.Text = "Instruction " + instruction_fetch.ToString();
             IDBox.Text = "Instruction " + instruction_decode.ToString();
