@@ -808,9 +808,8 @@
             this.CycleNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CycleNum.Location = new System.Drawing.Point(590, 434);
             this.CycleNum.Name = "CycleNum";
-            this.CycleNum.Size = new System.Drawing.Size(33, 20);
+            this.CycleNum.Size = new System.Drawing.Size(0, 20);
             this.CycleNum.TabIndex = 73;
-            this.CycleNum.Text = "NA";
             // 
             // textBox1
             // 
