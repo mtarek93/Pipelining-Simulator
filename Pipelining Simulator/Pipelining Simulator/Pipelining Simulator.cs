@@ -18,7 +18,7 @@ namespace Pipelining_Simulator
         //creating a list of instructions
         List<instruction> instructions = new List<instruction>();
         List<string> InstStrings = new List<string>();
-        int PC, ALU, Memory, instruction_fetch, instruction_exec, instruction_decode, instruction_mem, instruction_wb;
+        int PC = 0, ALU, Memory, instruction_fetch = -1, instruction_exec = -1, instruction_decode = -1 , instruction_mem = -1, instruction_wb = -1;
 
         public Form1()
         {
@@ -64,7 +64,7 @@ namespace Pipelining_Simulator
             else if (temp.label == "subi")
             {
                 input = input.Substring(input.IndexOf("$") + 1);
-                temp.second_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
+                temp.dest_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
                 input = input.Substring(input.IndexOf("$") + 1);
                 temp.first_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
                 input = input.Substring(input.IndexOf(" "));
@@ -74,7 +74,7 @@ namespace Pipelining_Simulator
             else if (temp.label == "lw" || temp.label == "sw")
             {
                 input = input.Substring(input.IndexOf("$") + 1);
-                temp.second_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
+                temp.dest_reg = Convert.ToInt32(input.Substring(0, input.IndexOf(",")));
                 input = input.Substring(input.IndexOf(" ") + 1);
                 temp.immediate = Convert.ToInt32(input.Substring(0, input.IndexOf("(")));
                 input = input.Substring(input.IndexOf("$") + 1);
@@ -121,8 +121,9 @@ namespace Pipelining_Simulator
         private void Form1_Load(object sender, EventArgs e)
         {
             //setting all registers to zero
-            for(int i=0; i<16; i++)
-                this.Controls["Reg" + i.ToString()].Text = "0"; 
+            Reg0.Text = "0";
+            for(int i=1; i<16; i++)
+                this.Controls["Reg" + i.ToString()].Text = "5"; 
 
             //setting all memory locations to zero
             for (int i = 0; i < 16; i++)
@@ -148,6 +149,7 @@ namespace Pipelining_Simulator
         
         private void SynCheck_Click(object sender, EventArgs e)
         {
+            NextCycle.Enabled = true;
             //reading instructions from file and parsing
             foreach (string str in InstStrings)
             {
@@ -156,6 +158,9 @@ namespace Pipelining_Simulator
         }
         private void Decode(int inst)
         {
+            if (inst < 0 || inst >= instructions.Count)
+                return;
+
             for (int i = 3; i > 1; i--)
             {
                 this.Controls["WB" + i.ToString()].Text = this.Controls["WB" + (i - 1).ToString()].Text;
@@ -174,15 +179,57 @@ namespace Pipelining_Simulator
         private void Execute(int i)
         {
             //NOT FINISHED
+            if (i < 0 || i >= instructions.Count)
+                return;
+
             instruction inst = instructions[i];
     
-            if (inst.label == "j")
+            //Forwarding
+            int First = ReadFromRegister(inst.first_reg);
+            int Second = ReadFromRegister(inst.second_reg);
+
+            if (i > 0 && WB2.Text == "1" && (inst.first_reg == instructions[i - 1].dest_reg))
+                First = ALU;
+            else if (i > 1 && WB3.Text == "1" && (inst.first_reg == instructions[i - 2].dest_reg))
+                First = Convert.ToInt32(ALU2.Text);
+            if (i > 0 && WB2.Text == "1" && (inst.second_reg == instructions[i - 1].dest_reg))
+                Second = ALU;
+            else if (i > 1 && WB3.Text == "1" && (inst.second_reg == instructions[i - 2].dest_reg))
+                Second = Convert.ToInt32(ALU2.Text);
+
+            if (inst.label == "add")
+            {
+                ALU = First + Second;
+            }
+
+            else if (inst.label == "or")
+            {
+                ALU = First | Second;
+            }
+
+            else if (inst.label == "slt")
+            {
+                bool tmp = First < Second;
+                ALU = (tmp) ? 1 : 0;
+            }
+
+            else if (inst.label == "subi")
+            {
+                ALU = First - inst.immediate;
+            }
+
+            else if (inst.label == "lw" || inst.label == "sw")
+            {
+              ALU = First + inst.immediate;
+            }
+
+            else if (inst.label == "j")
             {
                 PC = inst.immediate;
                 return;
             }
 
-            if (inst.label[0] == 'b')
+            else if (inst.label[0] == 'b')
             {
                 bool equals = (ReadFromRegister(inst.first_reg) == ReadFromRegister(inst.second_reg));
 
@@ -193,45 +240,11 @@ namespace Pipelining_Simulator
                 return;
             }
 
-            //Forwarding
-            int First = ReadFromRegister(inst.first_reg);
-            if (i > 1 && WB2.Text == "1" && (inst.first_reg == instructions[i - 1].dest_reg))
-                First = ALU;
-            int Second = ReadFromRegister(inst.second_reg);
-            if (i > 1 && WB2.Text == "1" && (inst.second_reg == instructions[i - 1].dest_reg))
-                Second = ALU;
-
-            if (inst.label == "add")
-            {
-                ALU = First + Second;
-            }
-
-            if (inst.label == "or")
-            {
-                ALU = First | Second;
-            }
-
-            if (inst.label == "slt")
-            {
-                bool tmp = First < Second;
-                ALU = (tmp) ? 1 : 0;
-            }
-
-            if (inst.label == "subi")
-            {
-                ALU = First + inst.immediate;
-            }
-
-            if (inst.label == "lw" || inst.label == "sw")
-            {
-                int address;
-                address = First + inst.immediate;
-                ALU2.Text = address.ToString(); //ALU2 or ALU??
-            }
-
         }
         private void WriteBack (int i)
         {
+
+            if (i < 0 || i >= instructions.Count)
             if (WB3.Text == "0")
                 return;
             if (instructions[i].label == "lw")
@@ -240,9 +253,13 @@ namespace Pipelining_Simulator
                 WriteToRegister(instructions[i].dest_reg, Convert.ToInt32(ALU3.Text));
         }
 
-        private void Mem(int i)
+        private void Mem (int i)
         {
             //NOT FINISHED
+
+            if (inst < 0 || inst >= instructions.Count)
+                return;
+
             instruction inst = instructions[i];
             int address = Convert.ToInt32(ALU2.Text);
 
@@ -260,10 +277,10 @@ namespace Pipelining_Simulator
 
         private void execute_cycle()
         {
+            WriteBack(instruction_wb);
             Execute(instruction_exec);
             Decode(instruction_decode);
             Mem(instruction_mem);
-            WriteBack(instruction_wb);
         }
 
         private void next_cycle()
@@ -292,6 +309,7 @@ namespace Pipelining_Simulator
             MemBox.Text = "Instruction " + instruction_mem.ToString();
             WBBox.Text = "Instruction " + instruction_wb.ToString();
             PCNum.Text = PC.ToString();
+
             for (int i = 3; i > 0; i--)
             {
                 this.Controls["Inst" + i.ToString()].Text = this.Controls["Inst" + (i - 1).ToString()].Text;

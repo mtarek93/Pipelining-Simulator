@@ -784,6 +784,7 @@
             // 
             // NextCycle
             // 
+            this.NextCycle.Enabled = false;
             this.NextCycle.Location = new System.Drawing.Point(468, 428);
             this.NextCycle.Name = "NextCycle";
             this.NextCycle.Size = new System.Drawing.Size(100, 35);
