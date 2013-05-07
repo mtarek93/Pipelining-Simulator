@@ -13,11 +13,10 @@ namespace Pipelining_Simulator
 {
     public partial class Form1 : Form
     {
-        static string path;
-        Dictionary<string, string> Dict; 
-        //creating a list of instructions
-        List<instruction> instructions = new List<instruction>();
-        List<string> InstStrings = new List<string>();
+        static string path;                                          //path for the file to be read
+        Dictionary<string, string> Dict;                             //dictionary which contains formats required for error checking
+        List<instruction> instructions = new List<instruction>();    //list of parsed instructions
+        List<string> InstStrings = new List<string>();               //list of instructions as strings to be output on the screen   
         int PC = -4, ALU, Memory, instruction_fetch = -1, instruction_exec = -1, instruction_decode = -1 , instruction_mem = -1, instruction_wb = -1, CycleNumber = 0;
         
         public Form1()
@@ -47,6 +46,7 @@ namespace Pipelining_Simulator
             return Convert.ToInt32(this.Controls["Mem" + addr.ToString()].Text);
         } 
 
+        //Function to parse each instruction of the MIPS code 
         instruction ParseString(string input)
         {
             instruction temp = new instruction();
@@ -118,6 +118,8 @@ namespace Pipelining_Simulator
                 label = _type;
             }
         }
+
+        //Initializing the dictionary with the formats for error checking
         private void init_dict()
         {
             Dict = new Dictionary<string,string> ();
@@ -130,9 +132,9 @@ namespace Pipelining_Simulator
             Dict.Add("beq","R,R,I");
             Dict.Add("bne","R,R,I");
             Dict.Add("j","I");
-
-
         }
+        
+        //Function to reset all the data to load a new file
         private void reset_all()
         {
             init_dict();
@@ -160,6 +162,7 @@ namespace Pipelining_Simulator
             instruction_wb = -1;
             CycleNumber = 0;
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             reset_all();              
@@ -173,7 +176,7 @@ namespace Pipelining_Simulator
             // Show the dialog and get result.
             DialogResult result = openFileDialog.ShowDialog();
 
-            if (result == DialogResult.OK) // Test result.
+            if (result == DialogResult.OK) // Test result
             {
                 path = openFileDialog.FileName;
                 FileDir.Text = path;
@@ -181,20 +184,20 @@ namespace Pipelining_Simulator
             }
         }
         
-        private void SynCheck_Click(object sender, EventArgs e)
-        {
-            
-        }
+        //Generate control signals and check for stalling conditions
         private void Decode(int inst)
         {
+            //Return if the instruction is invalid or the last instruction has been executed
             if (inst < 0 || inst >= instructions.Count)
                 return;
 
+            //Update write back signals from previous stage to current stage
             for (int i = 3; i > 1; i--)
             {
                 this.Controls["WB" + i.ToString()].Text = this.Controls["WB" + (i - 1).ToString()].Text;
             }
 
+            //Control Signals
             WB1.Text = "1";
             if (instructions[inst].label[0] == 'b' || instructions[inst].label == "j" || instructions[inst].label == "sw")
                 WB1.Text = "0";
@@ -204,7 +207,7 @@ namespace Pipelining_Simulator
             else
                 MemRead1.Text = "0";
             
-            //stall
+            //Stall conditions
             if (inst > 0 && instructions[inst - 1].label == "lw")
             {
                 if (instructions[inst - 1].dest_reg == instructions[inst].dest_reg && instructions[inst].label == "sw" && instruction_exec == inst - 1)
@@ -245,9 +248,10 @@ namespace Pipelining_Simulator
             }
         }
 
+        //Execute stage with forwarding
         private void Execute(int i)
         {
-            //NOT FINISHED
+            //Return if the instruction is invalid or the last instruction has been executed
             if (i < 0 || i >= instructions.Count)
                 return;
 
@@ -266,6 +270,7 @@ namespace Pipelining_Simulator
             else if (i > 1 && WB3.Text == "1" && (inst.second_reg == instructions[i - 2].dest_reg) && inst.dest_reg != 0 && inst.second_reg != 0 && instruction_mem != -1)
                 Second = Convert.ToInt32(ALU3.Text);
 
+            //ALU Operations
             if (inst.label == "add")
             {
                 ALU = First + Second;
@@ -292,14 +297,17 @@ namespace Pipelining_Simulator
               ALU = First + inst.immediate;
             }
 
+            //Jump
             else if (inst.label == "j")
             {
                 PC = inst.immediate - 4;
                 return;
             }
-
+               
+            //Branches
             else if (inst.label[0] == 'b')
             {
+                //Check if register contents are equal
                 bool equals = (ReadFromRegister(inst.first_reg) == ReadFromRegister(inst.second_reg));
 
                 if ((inst.label == "beq" && equals) || (inst.label == "bne" && !equals))
@@ -316,34 +324,44 @@ namespace Pipelining_Simulator
             }
 
         }
+
+        //Writeback Stage
         private void WriteBack (int i)
         {
-
+            //Return if the instruction is invalid or the last instruction has been executed
             if (i < 0 || i >= instructions.Count)
                 return;
+
+            //If there is no write signal return
             if (WB3.Text == "0")
                 return;
+
+            //if the current instruction is a load, write to register from memory
             if (instructions[i].label == "lw")
                 WriteToRegister(instructions[i].dest_reg, Memory);
+            
+            //Write to register from ALU result
             else
                 WriteToRegister(instructions[i].dest_reg, Convert.ToInt32(ALU3.Text));
         }
 
+        //Memory Stage
         private void Mem (int i)
         {
-            //NOT FINISHED
-
+            //Return if the instruction is invalid or the last instruction has been executed
             if (i < 0 || i >= instructions.Count)
                 return;
 
             instruction inst = instructions[i];
-            int address = Convert.ToInt32(ALU2.Text);
+            int address = Convert.ToInt32(ALU2.Text);  //Get address from EX/MEM register
 
+            //Load word
             if (inst.label == "lw")
             {
                 Memory = ReadFromMemory(address);
             }
 
+            //Store word
             if (inst.label == "sw")
             {
                 WriteToMemory(address,ReadFromRegister(inst.dest_reg));
@@ -361,6 +379,7 @@ namespace Pipelining_Simulator
 
         private void next_cycle()
         {
+            //Increment PC and move instructions to the next stage
             PC += 4;
             instruction_wb = instruction_mem;
             instruction_mem = instruction_exec;
@@ -368,16 +387,19 @@ namespace Pipelining_Simulator
             instruction_decode = instruction_fetch;
             instruction_fetch = PC/4;
 
+            //Last instruction is finished
             if (instruction_fetch > instructions.Count - 1)
             {
                 instruction_fetch = -1;
                 PC -= 4;
             }
 
+            //Data moving across pipeline registers
             ALU3.Text = ALU2.Text;
             ALU2.Text = ALU.ToString();
             Memory3.Text = Memory.ToString();
 
+            //Simulation ends when the last instruction is executed
             if (instruction_wb == instructions.Count - 1 && (instruction_decode + instruction_exec + instruction_fetch + instruction_mem == -4))
             {
                 NextCycle.Enabled = false;
@@ -385,6 +407,7 @@ namespace Pipelining_Simulator
                 timer1.Enabled = false;
             }
 
+            //Location of each instruction 
             IFBox.Text = "Instruction " + instruction_fetch.ToString();
             IDBox.Text = "Instruction " + instruction_decode.ToString();
             ExBox.Text = "Instruction " + instruction_exec.ToString();
@@ -392,6 +415,7 @@ namespace Pipelining_Simulator
             WBBox.Text = "Instruction " + instruction_wb.ToString();
             PCNum.Text = PC.ToString();
 
+            //Update instruction from previous stage to current stage
             for (int i = 3; i > 0; i--)
             {
                 this.Controls["Inst" + i.ToString()].Text = this.Controls["Inst" + (i - 1).ToString()].Text;
@@ -400,6 +424,7 @@ namespace Pipelining_Simulator
             execute_cycle();
         }
 
+        //Syntax checking
         private string error_check(string str)
         {
             int first_space = str.IndexOf(" ");
@@ -429,6 +454,7 @@ namespace Pipelining_Simulator
             return "Right";
         }
 
+        //Reading file, checking for errors, parsing, and loading it to the program
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             StreamReader input = new StreamReader(path);
@@ -441,6 +467,8 @@ namespace Pipelining_Simulator
                     InstStrings.Add(tmp);
             }
             PC = -4;
+
+            //checking for errors
             foreach (string str in InstStrings)
             {
                 string tmp = error_check(str);
@@ -451,6 +479,8 @@ namespace Pipelining_Simulator
                 }
 
             }
+
+            //Writing instructions on screen
             foreach (string str in InstStrings)
             {
                 InstructionID++;
@@ -468,12 +498,14 @@ namespace Pipelining_Simulator
             AutoSim.Enabled = true;
         }
 
+        //Execute next cycle and increment cycle number
         private void NextCycle_Click(object sender, EventArgs e)
         {
             next_cycle();
             CycleNum.Text = (++CycleNumber).ToString();
         }
 
+        //Auto Simulate cycles
         private void AutoSim_Click(object sender, EventArgs e)
         {
             if (timer1.Enabled == false)
@@ -489,13 +521,15 @@ namespace Pipelining_Simulator
                 AutoSim.Text = "Auto Simulate!";
             }
         }
-
+       
+        //Timer used for auto simulation
         private void timer1_Tick(object sender, EventArgs e)
         {
             next_cycle();
             CycleNum.Text = (++CycleNumber).ToString();
         }
 
+        //Random number generation for memory
         private void MemRand_Click(object sender, EventArgs e)
         {
             Random rand = new Random();
@@ -505,6 +539,7 @@ namespace Pipelining_Simulator
             }
         }
 
+        //Random number generation for registers
         private void RegRand_Click(object sender, EventArgs e)
         {
             Random rand = new Random();
@@ -514,6 +549,7 @@ namespace Pipelining_Simulator
             }
         }
 
+        //Reset to load a new file
         private void Reset_Click(object sender, EventArgs e)
         {
             reset_all();
