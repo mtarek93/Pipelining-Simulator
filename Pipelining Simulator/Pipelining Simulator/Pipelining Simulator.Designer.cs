@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Reg1 = new System.Windows.Forms.TextBox();
             this.Reg2 = new System.Windows.Forms.TextBox();
             this.Reg5 = new System.Windows.Forms.TextBox();
@@ -96,9 +97,7 @@
             this.Mem1 = new System.Windows.Forms.TextBox();
             this.Browse = new System.Windows.Forms.Button();
             this.Reset = new System.Windows.Forms.Button();
-            this.StartSim = new System.Windows.Forms.Button();
             this.FileDir = new System.Windows.Forms.TextBox();
-            this.SynCheck = new System.Windows.Forms.Button();
             this.NextCycle = new System.Windows.Forms.Button();
             this.AutoSim = new System.Windows.Forms.Button();
             this.CycleNum = new System.Windows.Forms.Label();
@@ -138,149 +137,120 @@
             this.ALU2 = new System.Windows.Forms.TextBox();
             this.ALU3 = new System.Windows.Forms.TextBox();
             this.Memory3 = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.MemRand = new System.Windows.Forms.Button();
+            this.RegRand = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Reg1
             // 
-            this.Reg1.Enabled = false;
             this.Reg1.Location = new System.Drawing.Point(1020, 113);
             this.Reg1.Name = "Reg1";
-            this.Reg1.ReadOnly = true;
             this.Reg1.Size = new System.Drawing.Size(79, 20);
             this.Reg1.TabIndex = 0;
             // 
             // Reg2
             // 
-            this.Reg2.Enabled = false;
             this.Reg2.Location = new System.Drawing.Point(1020, 133);
             this.Reg2.Name = "Reg2";
-            this.Reg2.ReadOnly = true;
             this.Reg2.Size = new System.Drawing.Size(79, 20);
             this.Reg2.TabIndex = 1;
             // 
             // Reg5
             // 
-            this.Reg5.Enabled = false;
             this.Reg5.Location = new System.Drawing.Point(1020, 200);
             this.Reg5.Name = "Reg5";
-            this.Reg5.ReadOnly = true;
             this.Reg5.Size = new System.Drawing.Size(79, 20);
             this.Reg5.TabIndex = 2;
             // 
             // Reg3
             // 
-            this.Reg3.Enabled = false;
             this.Reg3.Location = new System.Drawing.Point(1020, 155);
             this.Reg3.Name = "Reg3";
-            this.Reg3.ReadOnly = true;
             this.Reg3.Size = new System.Drawing.Size(79, 20);
             this.Reg3.TabIndex = 3;
             // 
             // Reg8
             // 
-            this.Reg8.Enabled = false;
             this.Reg8.Location = new System.Drawing.Point(1020, 270);
             this.Reg8.Name = "Reg8";
-            this.Reg8.ReadOnly = true;
             this.Reg8.Size = new System.Drawing.Size(79, 20);
             this.Reg8.TabIndex = 4;
             // 
             // Reg9
             // 
-            this.Reg9.Enabled = false;
             this.Reg9.Location = new System.Drawing.Point(1020, 292);
             this.Reg9.Name = "Reg9";
-            this.Reg9.ReadOnly = true;
             this.Reg9.Size = new System.Drawing.Size(79, 20);
             this.Reg9.TabIndex = 5;
             // 
             // Reg10
             // 
-            this.Reg10.Enabled = false;
             this.Reg10.Location = new System.Drawing.Point(1020, 315);
             this.Reg10.Name = "Reg10";
-            this.Reg10.ReadOnly = true;
             this.Reg10.Size = new System.Drawing.Size(79, 20);
             this.Reg10.TabIndex = 6;
             // 
             // Reg11
             // 
-            this.Reg11.Enabled = false;
             this.Reg11.Location = new System.Drawing.Point(1020, 337);
             this.Reg11.Name = "Reg11";
-            this.Reg11.ReadOnly = true;
             this.Reg11.Size = new System.Drawing.Size(79, 20);
             this.Reg11.TabIndex = 7;
             // 
             // Reg13
             // 
-            this.Reg13.Enabled = false;
             this.Reg13.Location = new System.Drawing.Point(1020, 385);
             this.Reg13.Name = "Reg13";
-            this.Reg13.ReadOnly = true;
             this.Reg13.Size = new System.Drawing.Size(79, 20);
             this.Reg13.TabIndex = 8;
             // 
             // Reg12
             // 
-            this.Reg12.Enabled = false;
             this.Reg12.Location = new System.Drawing.Point(1020, 361);
             this.Reg12.Name = "Reg12";
-            this.Reg12.ReadOnly = true;
             this.Reg12.Size = new System.Drawing.Size(79, 20);
             this.Reg12.TabIndex = 9;
             // 
             // Reg0
             // 
-            this.Reg0.Enabled = false;
             this.Reg0.Location = new System.Drawing.Point(1020, 91);
             this.Reg0.Name = "Reg0";
-            this.Reg0.ReadOnly = true;
             this.Reg0.Size = new System.Drawing.Size(79, 20);
             this.Reg0.TabIndex = 10;
             // 
             // Reg15
             // 
-            this.Reg15.Enabled = false;
             this.Reg15.Location = new System.Drawing.Point(1020, 434);
             this.Reg15.Name = "Reg15";
-            this.Reg15.ReadOnly = true;
             this.Reg15.Size = new System.Drawing.Size(79, 20);
             this.Reg15.TabIndex = 11;
             // 
             // Reg14
             // 
-            this.Reg14.Enabled = false;
             this.Reg14.Location = new System.Drawing.Point(1020, 411);
             this.Reg14.Name = "Reg14";
-            this.Reg14.ReadOnly = true;
             this.Reg14.Size = new System.Drawing.Size(79, 20);
             this.Reg14.TabIndex = 12;
             // 
             // Reg7
             // 
-            this.Reg7.Enabled = false;
             this.Reg7.Location = new System.Drawing.Point(1020, 247);
             this.Reg7.Name = "Reg7";
-            this.Reg7.ReadOnly = true;
             this.Reg7.Size = new System.Drawing.Size(79, 20);
             this.Reg7.TabIndex = 13;
             // 
             // Reg6
             // 
-            this.Reg6.Enabled = false;
             this.Reg6.Location = new System.Drawing.Point(1020, 224);
             this.Reg6.Name = "Reg6";
-            this.Reg6.ReadOnly = true;
             this.Reg6.Size = new System.Drawing.Size(79, 20);
             this.Reg6.TabIndex = 14;
             // 
             // Reg4
             // 
-            this.Reg4.Enabled = false;
             this.Reg4.Location = new System.Drawing.Point(1020, 177);
             this.Reg4.Name = "Reg4";
-            this.Reg4.ReadOnly = true;
             this.Reg4.Size = new System.Drawing.Size(79, 20);
             this.Reg4.TabIndex = 15;
             // 
@@ -594,151 +564,119 @@
             // 
             // Mem4
             // 
-            this.Mem4.Enabled = false;
             this.Mem4.Location = new System.Drawing.Point(893, 177);
             this.Mem4.Name = "Mem4";
-            this.Mem4.ReadOnly = true;
             this.Mem4.Size = new System.Drawing.Size(80, 20);
             this.Mem4.TabIndex = 48;
             // 
             // Mem6
             // 
-            this.Mem6.Enabled = false;
             this.Mem6.Location = new System.Drawing.Point(893, 224);
             this.Mem6.Name = "Mem6";
-            this.Mem6.ReadOnly = true;
             this.Mem6.Size = new System.Drawing.Size(80, 20);
             this.Mem6.TabIndex = 47;
             // 
             // Mem7
             // 
-            this.Mem7.Enabled = false;
             this.Mem7.Location = new System.Drawing.Point(893, 247);
             this.Mem7.Name = "Mem7";
-            this.Mem7.ReadOnly = true;
             this.Mem7.Size = new System.Drawing.Size(80, 20);
             this.Mem7.TabIndex = 46;
             // 
             // Mem14
             // 
-            this.Mem14.Enabled = false;
             this.Mem14.Location = new System.Drawing.Point(893, 411);
             this.Mem14.Name = "Mem14";
-            this.Mem14.ReadOnly = true;
             this.Mem14.Size = new System.Drawing.Size(80, 20);
             this.Mem14.TabIndex = 45;
             // 
             // Mem15
             // 
-            this.Mem15.Enabled = false;
             this.Mem15.Location = new System.Drawing.Point(893, 434);
             this.Mem15.Name = "Mem15";
-            this.Mem15.ReadOnly = true;
             this.Mem15.Size = new System.Drawing.Size(80, 20);
             this.Mem15.TabIndex = 44;
             // 
             // Mem0
             // 
-            this.Mem0.Enabled = false;
             this.Mem0.Location = new System.Drawing.Point(893, 91);
             this.Mem0.Name = "Mem0";
-            this.Mem0.ReadOnly = true;
             this.Mem0.Size = new System.Drawing.Size(80, 20);
             this.Mem0.TabIndex = 43;
             // 
             // Mem12
             // 
-            this.Mem12.Enabled = false;
             this.Mem12.Location = new System.Drawing.Point(893, 361);
             this.Mem12.Name = "Mem12";
-            this.Mem12.ReadOnly = true;
             this.Mem12.Size = new System.Drawing.Size(80, 20);
             this.Mem12.TabIndex = 42;
             // 
             // Mem13
             // 
-            this.Mem13.Enabled = false;
             this.Mem13.Location = new System.Drawing.Point(893, 385);
             this.Mem13.Name = "Mem13";
-            this.Mem13.ReadOnly = true;
             this.Mem13.Size = new System.Drawing.Size(80, 20);
             this.Mem13.TabIndex = 41;
             // 
             // Mem11
             // 
-            this.Mem11.Enabled = false;
             this.Mem11.Location = new System.Drawing.Point(893, 337);
             this.Mem11.Name = "Mem11";
-            this.Mem11.ReadOnly = true;
             this.Mem11.Size = new System.Drawing.Size(80, 20);
             this.Mem11.TabIndex = 40;
             // 
             // Mem10
             // 
-            this.Mem10.Enabled = false;
             this.Mem10.Location = new System.Drawing.Point(893, 315);
             this.Mem10.Name = "Mem10";
-            this.Mem10.ReadOnly = true;
             this.Mem10.Size = new System.Drawing.Size(80, 20);
             this.Mem10.TabIndex = 39;
             // 
             // Mem9
             // 
-            this.Mem9.Enabled = false;
             this.Mem9.Location = new System.Drawing.Point(893, 292);
             this.Mem9.Name = "Mem9";
-            this.Mem9.ReadOnly = true;
             this.Mem9.Size = new System.Drawing.Size(80, 20);
             this.Mem9.TabIndex = 38;
             // 
             // Mem8
             // 
-            this.Mem8.Enabled = false;
             this.Mem8.Location = new System.Drawing.Point(893, 270);
             this.Mem8.Name = "Mem8";
-            this.Mem8.ReadOnly = true;
             this.Mem8.Size = new System.Drawing.Size(80, 20);
             this.Mem8.TabIndex = 37;
             // 
             // Mem3
             // 
-            this.Mem3.Enabled = false;
             this.Mem3.Location = new System.Drawing.Point(893, 155);
             this.Mem3.Name = "Mem3";
-            this.Mem3.ReadOnly = true;
             this.Mem3.Size = new System.Drawing.Size(80, 20);
             this.Mem3.TabIndex = 36;
             // 
             // Mem5
             // 
-            this.Mem5.Enabled = false;
             this.Mem5.Location = new System.Drawing.Point(893, 200);
             this.Mem5.Name = "Mem5";
-            this.Mem5.ReadOnly = true;
             this.Mem5.Size = new System.Drawing.Size(80, 20);
             this.Mem5.TabIndex = 35;
             // 
             // Mem2
             // 
-            this.Mem2.Enabled = false;
             this.Mem2.Location = new System.Drawing.Point(893, 133);
             this.Mem2.Name = "Mem2";
-            this.Mem2.ReadOnly = true;
             this.Mem2.Size = new System.Drawing.Size(80, 20);
             this.Mem2.TabIndex = 34;
             // 
             // Mem1
             // 
-            this.Mem1.Enabled = false;
             this.Mem1.Location = new System.Drawing.Point(893, 113);
             this.Mem1.Name = "Mem1";
-            this.Mem1.ReadOnly = true;
             this.Mem1.Size = new System.Drawing.Size(80, 20);
             this.Mem1.TabIndex = 33;
             // 
             // Browse
             // 
-            this.Browse.Location = new System.Drawing.Point(415, 30);
+            this.Browse.Location = new System.Drawing.Point(225, 32);
             this.Browse.Name = "Browse";
             this.Browse.Size = new System.Drawing.Size(100, 35);
             this.Browse.TabIndex = 66;
@@ -748,46 +686,27 @@
             // 
             // Reset
             // 
-            this.Reset.Location = new System.Drawing.Point(225, 30);
+            this.Reset.Location = new System.Drawing.Point(27, 32);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(100, 35);
             this.Reset.TabIndex = 67;
             this.Reset.Text = "Reset";
             this.Reset.UseVisualStyleBackColor = true;
-            // 
-            // StartSim
-            // 
-            this.StartSim.Location = new System.Drawing.Point(119, 30);
-            this.StartSim.Name = "StartSim";
-            this.StartSim.Size = new System.Drawing.Size(100, 35);
-            this.StartSim.TabIndex = 68;
-            this.StartSim.Text = "Start Simulation";
-            this.StartSim.UseVisualStyleBackColor = true;
+            this.Reset.Click += new System.EventHandler(this.Reset_Click);
             // 
             // FileDir
             // 
-            this.FileDir.Location = new System.Drawing.Point(538, 38);
+            this.FileDir.Location = new System.Drawing.Point(340, 40);
             this.FileDir.Name = "FileDir";
             this.FileDir.Size = new System.Drawing.Size(237, 20);
             this.FileDir.TabIndex = 69;
             // 
-            // SynCheck
-            // 
-            this.SynCheck.Enabled = false;
-            this.SynCheck.Location = new System.Drawing.Point(13, 30);
-            this.SynCheck.Name = "SynCheck";
-            this.SynCheck.Size = new System.Drawing.Size(100, 35);
-            this.SynCheck.TabIndex = 70;
-            this.SynCheck.Text = "Syntax Check";
-            this.SynCheck.UseVisualStyleBackColor = true;
-            this.SynCheck.Click += new System.EventHandler(this.SynCheck_Click);
-            // 
             // NextCycle
             // 
             this.NextCycle.Enabled = false;
-            this.NextCycle.Location = new System.Drawing.Point(468, 428);
+            this.NextCycle.Location = new System.Drawing.Point(554, 426);
             this.NextCycle.Name = "NextCycle";
-            this.NextCycle.Size = new System.Drawing.Size(100, 35);
+            this.NextCycle.Size = new System.Drawing.Size(128, 35);
             this.NextCycle.TabIndex = 71;
             this.NextCycle.Text = "Next Cycle";
             this.NextCycle.UseVisualStyleBackColor = true;
@@ -795,25 +714,28 @@
             // 
             // AutoSim
             // 
-            this.AutoSim.Location = new System.Drawing.Point(349, 428);
+            this.AutoSim.Enabled = false;
+            this.AutoSim.Location = new System.Drawing.Point(415, 426);
             this.AutoSim.Name = "AutoSim";
-            this.AutoSim.Size = new System.Drawing.Size(100, 35);
+            this.AutoSim.Size = new System.Drawing.Size(132, 35);
             this.AutoSim.TabIndex = 72;
             this.AutoSim.Text = "Auto Simulate";
             this.AutoSim.UseVisualStyleBackColor = true;
+            this.AutoSim.Click += new System.EventHandler(this.AutoSim_Click);
             // 
             // CycleNum
             // 
             this.CycleNum.AutoSize = true;
             this.CycleNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CycleNum.Location = new System.Drawing.Point(590, 434);
+            this.CycleNum.Location = new System.Drawing.Point(688, 432);
             this.CycleNum.Name = "CycleNum";
-            this.CycleNum.Size = new System.Drawing.Size(0, 20);
+            this.CycleNum.Size = new System.Drawing.Size(119, 20);
             this.CycleNum.TabIndex = 73;
+            this.CycleNum.Text = "Cycle Number";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(242, 101);
+            this.textBox1.Location = new System.Drawing.Point(238, 101);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(144, 280);
@@ -823,7 +745,7 @@
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(12, 125);
+            this.label35.Location = new System.Drawing.Point(8, 125);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(88, 24);
             this.label35.TabIndex = 79;
@@ -833,7 +755,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(12, 179);
+            this.label36.Location = new System.Drawing.Point(8, 179);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(115, 24);
             this.label36.TabIndex = 78;
@@ -843,7 +765,7 @@
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(12, 209);
+            this.label37.Location = new System.Drawing.Point(8, 209);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(101, 24);
             this.label37.TabIndex = 77;
@@ -853,7 +775,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(12, 153);
+            this.label38.Location = new System.Drawing.Point(8, 153);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(94, 24);
             this.label38.TabIndex = 76;
@@ -863,7 +785,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(12, 96);
+            this.label39.Location = new System.Drawing.Point(8, 96);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(87, 24);
             this.label39.TabIndex = 75;
@@ -872,7 +794,7 @@
             // WBBox
             // 
             this.WBBox.Enabled = false;
-            this.WBBox.Location = new System.Drawing.Point(136, 209);
+            this.WBBox.Location = new System.Drawing.Point(132, 209);
             this.WBBox.Name = "WBBox";
             this.WBBox.ReadOnly = true;
             this.WBBox.Size = new System.Drawing.Size(100, 20);
@@ -881,7 +803,7 @@
             // IFBox
             // 
             this.IFBox.Enabled = false;
-            this.IFBox.Location = new System.Drawing.Point(136, 100);
+            this.IFBox.Location = new System.Drawing.Point(132, 100);
             this.IFBox.Name = "IFBox";
             this.IFBox.ReadOnly = true;
             this.IFBox.Size = new System.Drawing.Size(100, 20);
@@ -890,7 +812,7 @@
             // MemBox
             // 
             this.MemBox.Enabled = false;
-            this.MemBox.Location = new System.Drawing.Point(134, 182);
+            this.MemBox.Location = new System.Drawing.Point(130, 182);
             this.MemBox.Name = "MemBox";
             this.MemBox.ReadOnly = true;
             this.MemBox.Size = new System.Drawing.Size(100, 20);
@@ -899,7 +821,7 @@
             // ExBox
             // 
             this.ExBox.Enabled = false;
-            this.ExBox.Location = new System.Drawing.Point(135, 156);
+            this.ExBox.Location = new System.Drawing.Point(131, 156);
             this.ExBox.Name = "ExBox";
             this.ExBox.ReadOnly = true;
             this.ExBox.Size = new System.Drawing.Size(100, 20);
@@ -908,7 +830,7 @@
             // IDBox
             // 
             this.IDBox.Enabled = false;
-            this.IDBox.Location = new System.Drawing.Point(135, 129);
+            this.IDBox.Location = new System.Drawing.Point(131, 129);
             this.IDBox.Name = "IDBox";
             this.IDBox.ReadOnly = true;
             this.IDBox.Size = new System.Drawing.Size(100, 20);
@@ -916,18 +838,19 @@
             // 
             // PCNum
             // 
-            this.PCNum.Location = new System.Drawing.Point(134, 259);
+            this.PCNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PCNum.Location = new System.Drawing.Point(130, 292);
             this.PCNum.Name = "PCNum";
-            this.PCNum.Size = new System.Drawing.Size(100, 20);
+            this.PCNum.Size = new System.Drawing.Size(100, 47);
             this.PCNum.TabIndex = 85;
             // 
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(48, 258);
+            this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label40.Location = new System.Drawing.Point(50, 292);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(35, 24);
+            this.label40.Size = new System.Drawing.Size(65, 39);
             this.label40.TabIndex = 86;
             this.label40.Text = "PC";
             // 
@@ -937,11 +860,13 @@
             // 
             // LoadBtn
             // 
-            this.LoadBtn.Location = new System.Drawing.Point(331, 30);
+            this.LoadBtn.Enabled = false;
+            this.LoadBtn.Location = new System.Drawing.Point(133, 32);
             this.LoadBtn.Name = "LoadBtn";
-            this.LoadBtn.Size = new System.Drawing.Size(78, 35);
+            this.LoadBtn.Size = new System.Drawing.Size(86, 35);
             this.LoadBtn.TabIndex = 87;
             this.LoadBtn.Text = "Load";
+            this.LoadBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.LoadBtn.UseVisualStyleBackColor = true;
             this.LoadBtn.Click += new System.EventHandler(this.LoadBtn_Click);
             // 
@@ -949,7 +874,7 @@
             // 
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(395, 148);
+            this.label41.Location = new System.Drawing.Point(383, 148);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(48, 24);
             this.label41.TabIndex = 88;
@@ -959,7 +884,7 @@
             // 
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(395, 195);
+            this.label42.Location = new System.Drawing.Point(383, 195);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(59, 24);
             this.label42.TabIndex = 89;
@@ -969,7 +894,7 @@
             // 
             this.label43.AutoSize = true;
             this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.Location = new System.Drawing.Point(395, 251);
+            this.label43.Location = new System.Drawing.Point(383, 251);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(87, 24);
             this.label43.TabIndex = 90;
@@ -979,7 +904,7 @@
             // 
             this.label44.AutoSize = true;
             this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(395, 299);
+            this.label44.Location = new System.Drawing.Point(383, 299);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(90, 24);
             this.label44.TabIndex = 91;
@@ -989,7 +914,7 @@
             // 
             this.label46.AutoSize = true;
             this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label46.Location = new System.Drawing.Point(631, 110);
+            this.label46.Location = new System.Drawing.Point(618, 110);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(98, 24);
             this.label46.TabIndex = 93;
@@ -999,7 +924,7 @@
             // 
             this.label47.AutoSize = true;
             this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label47.Location = new System.Drawing.Point(583, 110);
+            this.label47.Location = new System.Drawing.Point(570, 110);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(40, 24);
             this.label47.TabIndex = 94;
@@ -1009,7 +934,7 @@
             // 
             this.label48.AutoSize = true;
             this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label48.Location = new System.Drawing.Point(478, 110);
+            this.label48.Location = new System.Drawing.Point(465, 110);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(95, 24);
             this.label48.TabIndex = 95;
@@ -1017,63 +942,63 @@
             // 
             // Inst0
             // 
-            this.Inst0.Location = new System.Drawing.Point(482, 149);
+            this.Inst0.Location = new System.Drawing.Point(470, 149);
             this.Inst0.Name = "Inst0";
             this.Inst0.Size = new System.Drawing.Size(77, 20);
             this.Inst0.TabIndex = 96;
             // 
             // Inst1
             // 
-            this.Inst1.Location = new System.Drawing.Point(482, 195);
+            this.Inst1.Location = new System.Drawing.Point(470, 195);
             this.Inst1.Name = "Inst1";
             this.Inst1.Size = new System.Drawing.Size(77, 20);
             this.Inst1.TabIndex = 97;
             // 
             // Inst2
             // 
-            this.Inst2.Location = new System.Drawing.Point(482, 251);
+            this.Inst2.Location = new System.Drawing.Point(470, 251);
             this.Inst2.Name = "Inst2";
             this.Inst2.Size = new System.Drawing.Size(77, 20);
             this.Inst2.TabIndex = 98;
             // 
             // WB1
             // 
-            this.WB1.Location = new System.Drawing.Point(577, 195);
+            this.WB1.Location = new System.Drawing.Point(565, 195);
             this.WB1.Name = "WB1";
             this.WB1.Size = new System.Drawing.Size(48, 20);
             this.WB1.TabIndex = 101;
             // 
             // WB2
             // 
-            this.WB2.Location = new System.Drawing.Point(577, 248);
+            this.WB2.Location = new System.Drawing.Point(565, 248);
             this.WB2.Name = "WB2";
             this.WB2.Size = new System.Drawing.Size(48, 20);
             this.WB2.TabIndex = 102;
             // 
             // WB3
             // 
-            this.WB3.Location = new System.Drawing.Point(577, 296);
+            this.WB3.Location = new System.Drawing.Point(565, 296);
             this.WB3.Name = "WB3";
             this.WB3.Size = new System.Drawing.Size(48, 20);
             this.WB3.TabIndex = 103;
             // 
             // MemRead2
             // 
-            this.MemRead2.Location = new System.Drawing.Point(656, 244);
+            this.MemRead2.Location = new System.Drawing.Point(644, 244);
             this.MemRead2.Name = "MemRead2";
             this.MemRead2.Size = new System.Drawing.Size(48, 20);
             this.MemRead2.TabIndex = 106;
             // 
             // MemRead1
             // 
-            this.MemRead1.Location = new System.Drawing.Point(656, 195);
+            this.MemRead1.Location = new System.Drawing.Point(644, 195);
             this.MemRead1.Name = "MemRead1";
             this.MemRead1.Size = new System.Drawing.Size(48, 20);
             this.MemRead1.TabIndex = 105;
             // 
             // Inst3
             // 
-            this.Inst3.Location = new System.Drawing.Point(482, 299);
+            this.Inst3.Location = new System.Drawing.Point(470, 299);
             this.Inst3.Name = "Inst3";
             this.Inst3.Size = new System.Drawing.Size(77, 20);
             this.Inst3.TabIndex = 99;
@@ -1082,7 +1007,7 @@
             // 
             this.label45.AutoSize = true;
             this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label45.Location = new System.Drawing.Point(730, 109);
+            this.label45.Location = new System.Drawing.Point(717, 109);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(46, 24);
             this.label45.TabIndex = 107;
@@ -1092,7 +1017,7 @@
             // 
             this.label49.AutoSize = true;
             this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(776, 108);
+            this.label49.Location = new System.Drawing.Point(763, 108);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(79, 24);
             this.label49.TabIndex = 108;
@@ -1100,30 +1025,57 @@
             // 
             // ALU2
             // 
-            this.ALU2.Location = new System.Drawing.Point(727, 244);
+            this.ALU2.Location = new System.Drawing.Point(715, 244);
             this.ALU2.Name = "ALU2";
             this.ALU2.Size = new System.Drawing.Size(48, 20);
             this.ALU2.TabIndex = 109;
             // 
             // ALU3
             // 
-            this.ALU3.Location = new System.Drawing.Point(727, 292);
+            this.ALU3.Location = new System.Drawing.Point(715, 292);
             this.ALU3.Name = "ALU3";
             this.ALU3.Size = new System.Drawing.Size(48, 20);
             this.ALU3.TabIndex = 110;
             // 
             // Memory3
             // 
-            this.Memory3.Location = new System.Drawing.Point(791, 292);
+            this.Memory3.Location = new System.Drawing.Point(779, 292);
             this.Memory3.Name = "Memory3";
             this.Memory3.Size = new System.Drawing.Size(48, 20);
             this.Memory3.TabIndex = 111;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 2000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // MemRand
+            // 
+            this.MemRand.Location = new System.Drawing.Point(876, 13);
+            this.MemRand.Name = "MemRand";
+            this.MemRand.Size = new System.Drawing.Size(88, 35);
+            this.MemRand.TabIndex = 112;
+            this.MemRand.Text = "Randomize Memory ";
+            this.MemRand.UseVisualStyleBackColor = true;
+            this.MemRand.Click += new System.EventHandler(this.MemRand_Click);
+            // 
+            // RegRand
+            // 
+            this.RegRand.Location = new System.Drawing.Point(1006, 14);
+            this.RegRand.Name = "RegRand";
+            this.RegRand.Size = new System.Drawing.Size(88, 35);
+            this.RegRand.TabIndex = 113;
+            this.RegRand.Text = "Randomize Registers";
+            this.RegRand.UseVisualStyleBackColor = true;
+            this.RegRand.Click += new System.EventHandler(this.RegRand_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1113, 483);
+            this.Controls.Add(this.RegRand);
+            this.Controls.Add(this.MemRand);
             this.Controls.Add(this.Memory3);
             this.Controls.Add(this.ALU3);
             this.Controls.Add(this.ALU2);
@@ -1162,9 +1114,7 @@
             this.Controls.Add(this.CycleNum);
             this.Controls.Add(this.AutoSim);
             this.Controls.Add(this.NextCycle);
-            this.Controls.Add(this.SynCheck);
             this.Controls.Add(this.FileDir);
-            this.Controls.Add(this.StartSim);
             this.Controls.Add(this.Reset);
             this.Controls.Add(this.Browse);
             this.Controls.Add(this.label18);
@@ -1311,9 +1261,7 @@
         private System.Windows.Forms.TextBox Mem1;
         private System.Windows.Forms.Button Browse;
         private System.Windows.Forms.Button Reset;
-        private System.Windows.Forms.Button StartSim;
         private System.Windows.Forms.TextBox FileDir;
-        private System.Windows.Forms.Button SynCheck;
         private System.Windows.Forms.Button NextCycle;
         private System.Windows.Forms.Button AutoSim;
         private System.Windows.Forms.Label CycleNum;
@@ -1353,6 +1301,9 @@
         private System.Windows.Forms.TextBox ALU2;
         private System.Windows.Forms.TextBox ALU3;
         private System.Windows.Forms.TextBox Memory3;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button MemRand;
+        private System.Windows.Forms.Button RegRand;
 
     }
 }

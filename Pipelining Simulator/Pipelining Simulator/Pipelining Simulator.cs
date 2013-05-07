@@ -14,12 +14,12 @@ namespace Pipelining_Simulator
     public partial class Form1 : Form
     {
         static string path;
-
+        Dictionary<string, string> Dict; 
         //creating a list of instructions
         List<instruction> instructions = new List<instruction>();
         List<string> InstStrings = new List<string>();
         int PC = -4, ALU, Memory, instruction_fetch = -1, instruction_exec = -1, instruction_decode = -1 , instruction_mem = -1, instruction_wb = -1, CycleNumber = 0;
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -118,19 +118,52 @@ namespace Pipelining_Simulator
                 label = _type;
             }
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void init_dict()
         {
+            Dict = new Dictionary<string,string> ();
+            Dict.Add("add","R,R,R");
+            Dict.Add("or","R,R,R");
+            Dict.Add("slt","R,R,R");
+            Dict.Add("subi", "R,R,I");
+            Dict.Add("lw", "R,I(R)");
+            Dict.Add("sw", "R,I(R)");
+            Dict.Add("beq","R,R,I");
+            Dict.Add("bne","R,R,I");
+            Dict.Add("j","I");
+
+
+        }
+        private void reset_all()
+        {
+            init_dict();
+            foreach (Control s in this.Controls)
+            {
+                if (s.GetType().ToString() == "System.Windows.Forms.TextBox")
+                    s.Text = "";
+            }
             //setting all registers to zero
-            Reg0.Text = "0";
-            for(int i=1; i<16; i++)
-                this.Controls["Reg" + i.ToString()].Text = "10"; 
+            for (int i = 0; i < 16; i++)
+                this.Controls["Reg" + i.ToString()].Text = "0";
 
             //setting all memory locations to zero
             for (int i = 0; i < 16; i++)
-                this.Controls["Mem" + i.ToString()].Text = "5";
-                      
-         }
+                this.Controls["Mem" + i.ToString()].Text = "0";
+            PCNum.Text = "";
+            instructions.Clear();
+            InstStrings.Clear();
+            CycleNum.Text = "";
+            PC = -4;
+            instruction_fetch = -1;
+            instruction_exec = -1; 
+            instruction_decode = -1;
+            instruction_mem = -1;
+            instruction_wb = -1;
+            CycleNumber = 0;
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            reset_all();              
+        }
 
         private void Browse_Click(object sender, EventArgs e)
         {
@@ -139,23 +172,18 @@ namespace Pipelining_Simulator
 
             // Show the dialog and get result.
             DialogResult result = openFileDialog.ShowDialog();
-            
+
             if (result == DialogResult.OK) // Test result.
             {
                 path = openFileDialog.FileName;
                 FileDir.Text = path;
+                LoadBtn.Enabled = true;
             }
-
         }
         
         private void SynCheck_Click(object sender, EventArgs e)
         {
-            NextCycle.Enabled = true;
-            //reading instructions from file and parsing
-            foreach (string str in InstStrings)
-            {
-                instructions.Add(ParseString(str));
-            }
+            
         }
         private void Decode(int inst)
         {
@@ -175,7 +203,8 @@ namespace Pipelining_Simulator
                 MemRead1.Text = "1";
             else
                 MemRead1.Text = "0";
-
+            
+            //stall
             if (inst > 0 && instructions[inst - 1].label == "lw")
             {
                 if (instructions[inst - 1].dest_reg == instructions[inst].dest_reg && instructions[inst].label == "sw" && instruction_exec == inst - 1)
@@ -189,7 +218,7 @@ namespace Pipelining_Simulator
                     PC -= 4;
                 }
 
-                else if ((instructions[inst - 1].dest_reg == instructions[inst].first_reg || instructions[inst - 1].dest_reg == instructions[inst].second_reg)  && instruction_exec == inst - 1)
+                else if ((instructions[inst - 1].dest_reg == instructions[inst].first_reg || instructions[inst - 1].dest_reg == instructions[inst].second_reg) && instruction_exec == inst - 1)
                 {
                     Inst0.Text = inst.ToString();
                     IFBox.Text = "Instruction " + inst.ToString();
@@ -350,7 +379,11 @@ namespace Pipelining_Simulator
             Memory3.Text = Memory.ToString();
 
             if (instruction_wb == instructions.Count - 1 && (instruction_decode + instruction_exec + instruction_fetch + instruction_mem == -4))
+            {
                 NextCycle.Enabled = false;
+                AutoSim.Enabled = false;
+                timer1.Enabled = false;
+            }
 
             IFBox.Text = "Instruction " + instruction_fetch.ToString();
             IDBox.Text = "Instruction " + instruction_decode.ToString();
@@ -367,22 +400,72 @@ namespace Pipelining_Simulator
             execute_cycle();
         }
 
+        private string error_check(string str)
+        {
+            int first_space = str.IndexOf(" ");
+            if (first_space == -1)
+                return "Invalid Instruction";
+            string instr_name = str.Substring(0,first_space);
+            if(!Dict.ContainsKey(instr_name))
+                return "Instruction " + instr_name + " Not found";
+            string format = str.Substring(first_space + 1);
+                format = format.Replace(" ", "");
+            for (int i = 15; i >= 0; i--)
+            {
+                format = format.Replace("$" + i.ToString(),"R");
+            }
+            for (int i = 0; i < format.Length; i++)
+            {
+                if (i > 0 && Char.IsDigit(format[i]) && Char.IsDigit(format[i - 1]))
+                {
+                    format = format.Remove(i, 1);
+                    i--;
+                }
+            }
+            for (int i = 0; i <= 9; i++)
+                format = format.Replace(i.ToString(),"I");
+            if (format != Dict[instr_name])
+                return "Syntax error in " + instr_name + " instruction.";
+            return "Right";
+        }
+
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             StreamReader input = new StreamReader(path);
             int InstructionID = 0;
             while (!input.EndOfStream)
             {
-                InstStrings.Add(input.ReadLine());
+                string tmp = input.ReadLine();
+                tmp.Trim();
+                if(tmp.Length > 0 && tmp[0] != '#')
+                    InstStrings.Add(tmp);
             }
             PC = -4;
+            foreach (string str in InstStrings)
+            {
+                string tmp = error_check(str);
+                if (tmp != "Right")
+                {
+                    MessageBox.Show("Compilation Error in instruction " + str + ": " + tmp);
+                    return;
+                }
+
+            }
             foreach (string str in InstStrings)
             {
                 InstructionID++;
                 textBox1.AppendText(InstructionID.ToString() + ") " + str + "\n");
             }
-            SynCheck.Enabled = true;
+            
+            //reading instructions from file and parsing
+            foreach (string str in InstStrings)
+            {
+                instructions.Add(ParseString(str));
+            }
+
+            NextCycle.Enabled = true;
             LoadBtn.Enabled = false;
+            AutoSim.Enabled = true;
         }
 
         private void NextCycle_Click(object sender, EventArgs e)
@@ -390,5 +473,54 @@ namespace Pipelining_Simulator
             next_cycle();
             CycleNum.Text = (++CycleNumber).ToString();
         }
+
+        private void AutoSim_Click(object sender, EventArgs e)
+        {
+            if (timer1.Enabled == false)
+            {
+                NextCycle.Enabled = false;
+                timer1.Enabled = true;
+                AutoSim.Text = "Stop Auto Simulation!";
+            }
+            else
+            {
+                NextCycle.Enabled = true;
+                timer1.Enabled = false;
+                AutoSim.Text = "Auto Simulate!";
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            next_cycle();
+            CycleNum.Text = (++CycleNumber).ToString();
+        }
+
+        private void MemRand_Click(object sender, EventArgs e)
+        {
+            Random rand = new Random();
+            for (int i = 0; i < 16; i++)
+            {
+                WriteToMemory(i, rand.Next(-1000,1000));
+            }
+        }
+
+        private void RegRand_Click(object sender, EventArgs e)
+        {
+            Random rand = new Random();
+            for (int i = 0; i < 16; i++)
+            {
+                WriteToRegister(i, rand.Next(-1000, 1000));
+            }
+        }
+
+        private void Reset_Click(object sender, EventArgs e)
+        {
+            reset_all();
+            AutoSim.Enabled = false;
+            NextCycle.Enabled = false;
+            LoadBtn.Enabled = false;
+        }
+        
     }
 }
