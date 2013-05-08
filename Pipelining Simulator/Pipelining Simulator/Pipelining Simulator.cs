@@ -263,11 +263,11 @@ namespace Pipelining_Simulator
 
             if (i > 0 && WB2.Text == "1" && (inst.first_reg == instructions[i - 1].dest_reg) && inst.dest_reg != 0 && inst.first_reg != 0 && instruction_mem != -1)
                 First = ALU;
-            else if (i > 1 && WB3.Text == "1" && (inst.first_reg == instructions[i - 2].dest_reg) && inst.dest_reg != 0 && inst.first_reg != 0 && instruction_mem != -1)
+            else if (i > 1 && WB3.Text == "1" && (inst.first_reg == instructions[i - 2].dest_reg) && inst.dest_reg != 0 && inst.first_reg != 0 && instruction_mem != -1 && instructions[i - 2].label != "lw")
                 First = Convert.ToInt32(ALU3.Text);
             if (i > 0 && WB2.Text == "1" && (inst.second_reg == instructions[i - 1].dest_reg) && inst.dest_reg != 0 && inst.second_reg != 0 && instruction_mem != -1)
                 Second = ALU;
-            else if (i > 1 && WB3.Text == "1" && (inst.second_reg == instructions[i - 2].dest_reg) && inst.dest_reg != 0 && inst.second_reg != 0 && instruction_mem != -1)
+            else if (i > 1 && WB3.Text == "1" && (inst.second_reg == instructions[i - 2].dest_reg) && inst.dest_reg != 0 && inst.second_reg != 0 && instruction_mem != -1 && instructions[i - 2].label != "lw")
                 Second = Convert.ToInt32(ALU3.Text);
 
             //ALU Operations
@@ -335,13 +335,13 @@ namespace Pipelining_Simulator
             //If there is no write signal return
             if (WB3.Text == "0")
                 return;
-
+            string s = instructions[i].label;
             //if the current instruction is a load, write to register from memory
-            if (instructions[i].label == "lw")
+            if (s == "lw")
                 WriteToRegister(instructions[i].dest_reg, Memory);
             
             //Write to register from ALU result
-            else
+            else if(s == "add" || s == "subi" || s == "slt" || s == "or")
                 WriteToRegister(instructions[i].dest_reg, Convert.ToInt32(ALU3.Text));
         }
 
@@ -388,6 +388,8 @@ namespace Pipelining_Simulator
             instruction_fetch = PC/4;
 
             //Last instruction is finished
+            if (instruction_fetch == instruction_decode)
+                instruction_fetch = -1;
             if (instruction_fetch > instructions.Count - 1)
             {
                 instruction_fetch = -1;
