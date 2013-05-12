@@ -485,8 +485,8 @@ namespace Pipelining_Simulator
             //Writing instructions on screen
             foreach (string str in InstStrings)
             {
-                InstructionID++;
                 textBox1.AppendText(InstructionID.ToString() + ") " + str + "\n");
+                InstructionID++;
             }
             
             //reading instructions from file and parsing

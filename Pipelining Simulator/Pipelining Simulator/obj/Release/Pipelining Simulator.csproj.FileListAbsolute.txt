@@ -7,3 +7,12 @@ C:\Users\islamdiaa\Desktop\Pipelining-Simulator-master\Pipelining Simulator\Pipe
 C:\Users\islamdiaa\Desktop\Pipelining-Simulator-master\Pipelining Simulator\Pipelining Simulator\obj\Release\Pipelining Simulator.csproj.GenerateResource.Cache
 C:\Users\islamdiaa\Desktop\Pipelining-Simulator-master\Pipelining Simulator\Pipelining Simulator\obj\Release\Pipelining Simulator.exe
 C:\Users\islamdiaa\Desktop\Pipelining-Simulator-master\Pipelining Simulator\Pipelining Simulator\obj\Release\Pipelining Simulator.pdb
+C:\Users\Mohamed\Documents\GitHub\Pipelining Simulator\Pipelining Simulator\bin\Release\Pipelining Simulator.exe.config
+C:\Users\Mohamed\Documents\GitHub\Pipelining Simulator\Pipelining Simulator\bin\Release\Pipelining Simulator.exe
+C:\Users\Mohamed\Documents\GitHub\Pipelining Simulator\Pipelining Simulator\bin\Release\Pipelining Simulator.pdb
+C:\Users\Mohamed\Documents\GitHub\Pipelining Simulator\Pipelining Simulator\obj\Release\Pipelining Simulator.csprojResolveAssemblyReference.cache
+C:\Users\Mohamed\Documents\GitHub\Pipelining Simulator\Pipelining Simulator\obj\Release\Pipelining_Simulator.Form1.resources
+C:\Users\Mohamed\Documents\GitHub\Pipelining Simulator\Pipelining Simulator\obj\Release\Pipelining_Simulator.Properties.Resources.resources
+C:\Users\Mohamed\Documents\GitHub\Pipelining Simulator\Pipelining Simulator\obj\Release\Pipelining Simulator.csproj.GenerateResource.Cache
+C:\Users\Mohamed\Documents\GitHub\Pipelining Simulator\Pipelining Simulator\obj\Release\Pipelining Simulator.exe
+C:\Users\Mohamed\Documents\GitHub\Pipelining Simulator\Pipelining Simulator\obj\Release\Pipelining Simulator.pdb
